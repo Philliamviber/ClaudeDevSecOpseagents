@@ -132,11 +132,11 @@
   <div class="wrap">
     <div class="eyebrow">Claude Code · Subagent Playbook</div>
     <h1>Running an SDLC with a Bench of Agents</h1>
-    <p class="sub">You have <b>16 specialist subagents</b> on call. This sheet shows what each one is for, the exact words that summon it, and how to chain several inside a single prompt so one request drives a whole feature from idea → ship.</p>
+    <p class="sub">You have <b>18 specialist subagents</b> on call. This sheet shows what each one is for, the exact words that summon it, and how to chain several inside a single prompt so one request drives a whole feature from idea → ship.</p>
     <div class="pills">
       <span class="pill"><span class="legend"><span class="dot" style="background:var(--plan)"></span> <b>Planning</b></span></span>
       <span class="pill"><span class="legend"><span class="dot" style="background:var(--dev)"></span> <b>Dev / SDLC</b> · 7</span></span>
-      <span class="pill"><span class="legend"><span class="dot" style="background:var(--sec)"></span> <b>Security</b> · 6</span></span>
+      <span class="pill"><span class="legend"><span class="dot" style="background:var(--sec)"></span> <b>Security</b> · 8</span></span>
       <span class="pill"><span class="legend"><span class="dot" style="background:var(--doc)"></span> <b>Docs</b> · 3</span></span>
     </div>
   </div>
@@ -160,7 +160,7 @@
 <!-- ============ HOW IT WORKS ============ -->
 <section id="how"><span class="anchor"></span>
   <h2><span class="num">01</span> The mental model</h2>
-  <p class="lead">You don't manage 16 agents by hand. You talk to your <b>main conversation</b>, and it dispatches work to specialists. Two ways that happens:</p>
+  <p class="lead">You don't manage 18 agents by hand. You talk to your <b>main conversation</b>, and it dispatches work to specialists. Two ways that happens:</p>
   <div class="two">
     <div class="card" style="--cardc:var(--plan)">
       <h3>tech-lead = the planner</h3>
@@ -233,8 +233,8 @@
 
 <!-- ============ SECURITY ============ -->
 <section id="sec"><span class="anchor"></span>
-  <h2><span class="num">03</span> Security agents <span class="badge" style="background:rgba(249,117,131,.12);color:var(--sec)">6</span></h2>
-  <p class="lead">Bake security into the SDLC — design-time, build-time, and incident-time.</p>
+  <h2><span class="num">03</span> Security agents <span class="badge" style="background:rgba(249,117,131,.12);color:var(--sec)">8</span></h2>
+  <p class="lead">Bake security into the SDLC — design-time, build-time, and incident-time — plus a <b>red-team pair</b> for authorized offensive engagements.</p>
 
   <div class="grid">
     <div class="card" style="--cardc:var(--sec)">
@@ -273,6 +273,21 @@
       <p>Triage, scoping, containment, eradication, recovery, post-incident review (NIST 800-61 / PICERL). Analyzes locally; gives runbook guidance for live actions.</p>
       <p class="trig"><b>Say:</b> "I think we've been breached", "help me investigate this alert/IOC", "write the incident timeline"</p>
     </div>
+    <div class="card" style="--cardc:var(--sec)">
+      <h3>osint-redteamer <span class="badge b-doer">DOER</span></h3>
+      <div class="role">Red team · recon (OSINT)</div>
+      <p>Passive open-source intel on an authorized target — domains, subdomains, exposed assets, leaked creds, employees for pretext, attack-surface mapping. Scope- &amp; authorization-gated.</p>
+      <p class="trig"><b>Say:</b> "recon this domain for our engagement", "what's the external attack surface of X?", "find exposed assets/leaks for target Y"</p>
+    </div>
+    <div class="card" style="--cardc:var(--sec)">
+      <h3>ad-redteamer <span class="badge b-doer">DOER</span></h3>
+      <div class="role">Red team · AD + Entra paths</div>
+      <p>Authorized Active Directory <b>and Entra ID</b> pentest: BloodHound / AzureHound path analysis, Kerberoasting / AS-REP roasting, Pass-the-Hash / Pass-the-Ticket, lateral movement, privesc to Domain Admin / Global Admin, and on-prem ↔ cloud hybrid pivots. Scope- &amp; authorization-gated.</p>
+      <p class="trig"><b>Say:</b> "shortest path to Domain Admin / Global Admin here?", "analyze this BloodHound export", "pivot from on-prem to the tenant"</p>
+    </div>
+  </div>
+  <div class="note" style="margin-top:18px">
+    <b>Blue vs. red.</b> The first six are <i>defensive</i> — design, posture, detection, response. <code class="inline">osint-redteamer</code> and <code class="inline">ad-redteamer</code> are <i>offensive</i>: they operate only inside an explicitly authorized, scoped engagement (pentest / CTF / lab) and stay passive until you confirm scope.
   </div>
 </section>
 
@@ -418,6 +433,8 @@ and <span class="tok-a">docs-maintainer</span> to update the docs."</code></pre>
       <tr><td>Cloud / K8s / Terraform safety</td><td class="ag" style="color:var(--sec)">cloud-security-engineer</td><td><span class="tag b-doer">doer</span></td><td class="say">"review this Terraform", "harden this manifest"</td></tr>
       <tr><td>SIEM rules / threat hunting</td><td class="ag" style="color:var(--sec)">detection-engineer</td><td><span class="tag b-doer">doer</span></td><td class="say">"write a Sigma rule", "hunt for Y"</td></tr>
       <tr><td>Respond to a breach</td><td class="ag" style="color:var(--sec)">incident-responder</td><td><span class="tag b-doer">doer</span></td><td class="say">"help me investigate this alert/IOC"</td></tr>
+      <tr><td>Recon an authorized target (OSINT)</td><td class="ag" style="color:var(--sec)">osint-redteamer</td><td><span class="tag b-doer">doer</span></td><td class="say">"recon this domain for our engagement"</td></tr>
+      <tr><td>Attack AD / Entra ID (authorized)</td><td class="ag" style="color:var(--sec)">ad-redteamer</td><td><span class="tag b-doer">doer</span></td><td class="say">"shortest path to Domain / Global Admin here?"</td></tr>
       <tr><td>Write / polish a README</td><td class="ag" style="color:var(--doc)">readme-specialist</td><td><span class="tag b-author">author</span></td><td class="say">"make the README great"</td></tr>
       <tr><td>Guides, API docs, ADRs</td><td class="ag" style="color:var(--doc)">tech-writer</td><td><span class="tag b-author">author</span></td><td class="say">"document this", "write an ADR"</td></tr>
       <tr><td>Keep docs accurate over time</td><td class="ag" style="color:var(--doc)">docs-maintainer</td><td><span class="tag b-doer">doer</span></td><td class="say">"update the docs for this change"</td></tr>
@@ -460,7 +477,7 @@ and <span class="tok-a">docs-maintainer</span> to update the docs."</code></pre>
 </div>
 
 <footer>
-  Claude Code · 16-agent SDLC bench cheat sheet · generated 2026-06-14 · keep me open while you practice
+  Claude Code · 18-agent SDLC bench cheat sheet · updated 2026-06-18 · keep me open while you practice
 </footer>
 
 </body>
